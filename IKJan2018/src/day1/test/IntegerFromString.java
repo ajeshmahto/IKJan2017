@@ -1,4 +1,4 @@
-package TestDay1;
+package day1.test;
 
 /**
  * Created by ajesh on 1/8/18.
