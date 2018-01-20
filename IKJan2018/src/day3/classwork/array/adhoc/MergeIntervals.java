@@ -1,6 +1,8 @@
 package day3.classwork.array.adhoc;
 
 import java.util.ArrayList;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -49,6 +51,7 @@ public class MergeIntervals {
 
         for(Intervals i : result){
             System.out.print("{"+i.getStart()+","+i.getEnd()+"} ");
+            Deque<Integer> q = new LinkedList<>();
         }
 
 

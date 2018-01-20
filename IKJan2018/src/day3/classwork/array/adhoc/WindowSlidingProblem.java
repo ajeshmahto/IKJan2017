@@ -11,7 +11,7 @@ public class WindowSlidingProblem {
 
         UsingBST usingBST = new UsingBST();
 
-        int arr[] = {12, 1, 78, 90, 57, 89, 56};
+        int arr[] = {1, 3, -1, -3, 5, 3, 6, 7};
         int k = 3;
 
         UsingQueue usingQueue = new UsingQueue();
@@ -20,23 +20,22 @@ public class WindowSlidingProblem {
 
 
 
+
     }
 }
 
 
+class UsingQueue {
 
+    public void findSlidingMax(int[] a, int window) {
 
-class UsingQueue{
+        Deque<Integer> queue = new LinkedList<>();
 
-    public  void findSlidingMax(int[] a, int window){
+        int i = 0;
 
-        Deque<Integer> queue =  new LinkedList<>();
+        for (; i < window; i++) {
 
-        int i=0;
-
-        for (; i<window ; i++) {
-
-            while (!queue.isEmpty() && a[i] > a[queue.peekLast()]){
+            while (!queue.isEmpty() && a[i] > a[queue.peekLast()]) {
                 queue.removeLast();
             }
 
@@ -44,17 +43,18 @@ class UsingQueue{
         }
 
 
-        for(; i<a.length; i++){
+        for (; i < a.length; i++) {
 
-            System.out.print(a[queue.peek()]+" ");
+            System.out.print(a[queue.peek()] + " ");
 
             // Remove elements from first if window exceeds the range
-            while (!queue.isEmpty() && queue.peek() <= i-window){
+            while (!queue.isEmpty() && queue.peek() <= i - window) {
                 queue.removeFirst();
             }
 
             // remove smallest elements
-            while (!queue.isEmpty() && a[i] >= a[queue.peekLast()]){
+            while (!queue.isEmpty() && a[i] >= a[queue.peekLast()]) {
+
                 queue.removeLast();
             }
 
@@ -63,15 +63,42 @@ class UsingQueue{
 
         System.out.print(a[queue.peek()]);
     }
+
+
+    public void findMaximum(int[] arr, int window) {
+
+        Deque<Integer> queue = new LinkedList<>();
+        int i = 0;
+        for (; i < window; i++) {
+            while (!queue.isEmpty() && arr[i] >= arr[queue.peekLast()]) {
+                queue.removeLast();
+            }
+            queue.addLast(i);
+        }
+
+        for (; i < arr.length; i++) {
+
+            System.out.println(arr[queue.peekLast()]);
+
+            while (!queue.isEmpty() && queue.peekFirst() <= i - window) {
+                queue.removeFirst();
+            }
+
+            while (!queue.isEmpty() && arr[i] >= arr[queue.peekLast()]) {
+                queue.removeLast();
+            }
+
+            queue.addLast(i);
+        }
+        System.out.println(arr[queue.peekLast()]);
+    }
+
 }
-
-
-
 
 
 class UsingBST {
 
-    public void findRunningMax(int[] a , int window){
+    public void findRunningMax(int[] a, int window) {
 
         int max = Integer.MIN_VALUE;
 
@@ -84,17 +111,17 @@ class UsingBST {
 
             Iterator<Integer> it = tree.iterator();
 
-            while(it.hasNext()){
+            while (it.hasNext()) {
                 int value = it.next();
-                if(max < value){
+                if (max < value) {
                     max = value;
                 }
             }
 
-            System.out.println(max+" ");
+            System.out.println(max + " ");
 
             tree.remove(a[i]);
-            tree.add(a[i+window]);
+            tree.add(a[i + window]);
         }
     }
 }
